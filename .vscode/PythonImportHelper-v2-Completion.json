@@ -267,14 +267,6 @@
         "documentation": {}
     },
     {
-        "label": "redirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
         "label": "authenticate",
         "importPath": "django.contrib.auth",
         "description": "django.contrib.auth",
@@ -468,7 +460,7 @@
         "kind": 2,
         "importPath": "account.views",
         "description": "account.views",
-        "peekOfCode": "def login(request):\n    if request.method == 'POST':\n        email = request.POST.get('email')\n        password = request.POST.get('password')\n        user = authenticate(request, username=email, password=password)\n        if user is not None:\n            if user.is_verified:\n                auth_login(request, user)\n                return redirect('home')\n            else:",
+        "peekOfCode": "def login(request):\n    if request.method == 'POST':\n        username = request.POST.get('username')\n        password = request.POST.get('password')\n        user = authenticate(request, username=username, password=password)\n        if user is not None:\n            if user.is_verified:\n                auth_login(request, user)\n                return redirect('home')\n            else:",
         "detail": "account.views",
         "documentation": {}
     },

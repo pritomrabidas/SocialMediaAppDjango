@@ -60,9 +60,9 @@ def varification(request):
 
 def login(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             if user.is_verified:
                 auth_login(request, user)
@@ -70,6 +70,9 @@ def login(request):
             else:
                 messages.error(request, 'Please verify your email first.')
                 return redirect('varification')
+        else:
+            messages.error(request, 'Invalid credentials.')
+            return render(request, 'auth/login.html')
     return render(request, 'auth/login.html')
 
 def logout(request):
