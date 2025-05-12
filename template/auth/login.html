@@ -68,11 +68,12 @@
           <input type="checkbox" class="form-check-input" id="rememberMe" />
           <label class="form-check-label" for="rememberMe">Remember me</label>
         </div>
-        {% if messages %}
+        {% if messages %} {% for message in messages %}
         <div class="alert alert-danger" role="alert">
-          {% for message in messages %} {{ message }}<br />
-          {% endfor %} {% endif %}
+          {{ message }}
+          <br />
         </div>
+        {% endfor %} {% endif %}
         <button type="submit" class="btn btn-primary w-100">Login</button>
         <div class="mt-3 text-center">
           <small

@@ -1,6 +1,8 @@
 import django.conf
+import django.contrib.auth.models
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.core.mail import send_mail
 from social.settings import EMAIL_HOST_USER
 from .models import User
@@ -58,7 +60,11 @@ def varification(request):
         
     return render(request, 'auth/varification.html')
 
-def login(request):
+def logout(request):
+    auth_logout(request)
+    return redirect('register')
+
+def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -69,15 +75,13 @@ def login(request):
                 return redirect('home')
             else:
                 messages.error(request, 'Please verify your email first.')
-                return redirect('varification')
+                return render(request,'auth/login.html')
         else:
             messages.error(request, 'Invalid credentials.')
             return render(request, 'auth/login.html')
     return render(request, 'auth/login.html')
 
-def logout(request):
-    auth_logout(request)
-    return redirect('home')
+
 
 def profile(request):
     return render(request, 'auth/profile.html')

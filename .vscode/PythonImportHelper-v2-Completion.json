@@ -74,6 +74,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -111,6 +127,15 @@
         "description": "django.db",
         "isExtraImport": true,
         "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "django.contrib.auth.validators",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.contrib.auth.validators",
+        "description": "django.contrib.auth.validators",
+        "detail": "django.contrib.auth.validators",
         "documentation": {}
     },
     {
@@ -402,6 +427,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "account.migrations.0004_alter_user_password_alter_user_username",
+        "description": "account.migrations.0004_alter_user_password_alter_user_username",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('account', '0003_user_otp'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='user',\n            name='password',\n            field=models.CharField(max_length=128, verbose_name='password'),\n        ),",
+        "detail": "account.migrations.0004_alter_user_password_alter_user_username",
+        "documentation": {}
+    },
+    {
         "label": "AccountConfig",
         "kind": 6,
         "importPath": "account.apps",
@@ -415,7 +449,7 @@
         "kind": 6,
         "importPath": "account.models",
         "description": "account.models",
-        "peekOfCode": "class User(AbstractUser):\n    username = models.CharField(max_length=30, unique=True)\n    fullName = models.CharField(max_length=30)\n    email = models.EmailField(unique=True)\n    password = models.CharField(max_length=128)  # Use a hashed password in production\n    otp = models.CharField(max_length=6, blank=True, null=True)\n    is_verified = models.BooleanField(default=True)\n    is_active = models.BooleanField(default=False)\n    def __str__(self):\n        return self.username",
+        "peekOfCode": "class User(AbstractUser):\n    fullName = models.CharField(max_length=30)\n    email = models.EmailField(unique=True)\n    otp = models.CharField(max_length=6, blank=True, null=True)\n    is_verified = models.BooleanField(default=True)\n    is_active = models.BooleanField(default=False)\n    def __str__(self):\n        return self.username",
         "detail": "account.models",
         "documentation": {}
     },
@@ -424,7 +458,7 @@
         "kind": 5,
         "importPath": "account.urls",
         "description": "account.urls",
-        "peekOfCode": "urlpatterns = [\n    path('register/', register, name='register'),\n    path('varification/', varification, name='varification'),\n    path('login/', login, name='login'),\n    path('logout/', logout, name='logout'),\n    path('profile/', profile, name='profile'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('register/', register, name='register'),\n    path('varification/', varification, name='varification'),\n    path('login/', login_user, name='login'),\n    path('logout/', logout, name='logout'),\n    path('profile/', profile, name='profile'),\n]",
         "detail": "account.urls",
         "documentation": {}
     },
@@ -456,20 +490,20 @@
         "documentation": {}
     },
     {
-        "label": "login",
-        "kind": 2,
-        "importPath": "account.views",
-        "description": "account.views",
-        "peekOfCode": "def login(request):\n    if request.method == 'POST':\n        username = request.POST.get('username')\n        password = request.POST.get('password')\n        user = authenticate(request, username=username, password=password)\n        if user is not None:\n            if user.is_verified:\n                auth_login(request, user)\n                return redirect('home')\n            else:",
-        "detail": "account.views",
-        "documentation": {}
-    },
-    {
         "label": "logout",
         "kind": 2,
         "importPath": "account.views",
         "description": "account.views",
-        "peekOfCode": "def logout(request):\n    auth_logout(request)\n    return redirect('home')\ndef profile(request):\n    return render(request, 'auth/profile.html')",
+        "peekOfCode": "def logout(request):\n    auth_logout(request)\n    return redirect('register')\ndef login_user(request):\n    if request.method == 'POST':\n        username = request.POST.get('username')\n        password = request.POST.get('password')\n        user = authenticate(request, username=username, password=password)\n        if user is not None:\n            if user.is_verified:",
+        "detail": "account.views",
+        "documentation": {}
+    },
+    {
+        "label": "login_user",
+        "kind": 2,
+        "importPath": "account.views",
+        "description": "account.views",
+        "peekOfCode": "def login_user(request):\n    if request.method == 'POST':\n        username = request.POST.get('username')\n        password = request.POST.get('password')\n        user = authenticate(request, username=username, password=password)\n        if user is not None:\n            if user.is_verified:\n                auth_login(request, user)\n                return redirect('home')\n            else:",
         "detail": "account.views",
         "documentation": {}
     },
